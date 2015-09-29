@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-//import control.ControlerRecherche;
+import control.ControlerRecherche;
 
 public class InterfacePrincipale {
 	private JFrame frame;
@@ -78,7 +78,7 @@ public class InterfacePrincipale {
 		
 		//creation des boutons
 		boutonRecherche = new JButton("Rechercher");
-//		boutonRecherche.addActionListener(new ControlerRecherche(this));					
+		boutonRecherche.addActionListener(new ControlerRecherche(this));					
 		
 		panelBoiteOutil.add(boutonRecherche);
 		panelFrame.add(panelBoiteOutil);
