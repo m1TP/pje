@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TweetSkeleton {
 	
@@ -37,6 +39,55 @@ public class TweetSkeleton {
 		this.date=date;
 		this.query=query;
 		this.annotation=-1; 
+	}
+	
+	/**
+	 * Clean a body of text of various bad input such as:
+	 * -replace \n \t \r par un espace 
+	 * -remove username
+	 * -remove add white space before and after punctuation
+	 * -replace dollar/euro value with variable
+	 * -replace percentage value with variable
+	 * @param text
+	 * @return
+	 */
+	public String nettoyage(String text)
+	{
+		String regWhiteSpace      = "\\s";
+		String regSpecialSymbol   = "(@|#|RT)[a-zA-­Z0‐9?:\\.!_,]*"; //filter for #,@ and RT
+		String regPunctuation     = "([\"!:?.;,])";
+		String regCurrency        = "(\\p{Sc})\\d[.\\d]*";
+		String regPercentage      = "\\d{1,2}%";
+		
+		
+		StringBuffer sb = new StringBuffer(text);
+		
+		sb = replacePattern(sb, regWhiteSpace, " ");
+		sb = replacePattern(sb, regSpecialSymbol,"$1");
+		sb = replacePattern(sb, regPunctuation, " $1 ");
+		sb = replacePattern(sb, regCurrency, "$1XXX");
+		sb = replacePattern(sb, regPercentage, "XX%");
+		
+		System.out.println(sb);
+		return "";
+	}
+	
+	/**
+	 * Search a motif according to a specified regex in a text, and replace occurence of found motif with a specified String
+	 * @param text The text the search is made in
+	 * @param reg  The regex to use to look for motif
+	 * @param replace The String to replace the motif with 
+	 * @return The new String with the replacement done
+	 */
+	private StringBuffer replacePattern(StringBuffer text, String reg, String replace)
+	{
+		Pattern p = Pattern.compile(reg);
+		Matcher m = p.matcher(text);
+		StringBuffer sb = new StringBuffer();
+		while(m.find())
+			   m.appendReplacement(sb, replace);
+		
+		return m.appendTail(sb);
 	}
 	
 	public void setAnnotation(int n)

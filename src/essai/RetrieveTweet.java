@@ -16,12 +16,23 @@ import twitter4j.TwitterFactory;
 
 public class RetrieveTweet {
 	
-	public List<TweetSkeleton> gogo(String sujetTweet, int nbTweet){
-		// The factory instance is re-useable and thread safe.
+	/**
+	 * overload the method and never allow retweet in the query
+	 */
+	public List<TweetSkeleton> queryTwitter(String sujetTweet, int nbTweet)
+	{
+		return queryTwitter(sujetTweet,nbTweet,false);
+	}
+	
+	
+	public List<TweetSkeleton> queryTwitter(String sujetTweet, int nbTweet, boolean retweetAllowed){
 	    Twitter twitter = TwitterFactory.getSingleton();
 	    String qquery = sujetTweet;
+	    String tmpQuery = "";
+	    if (!retweetAllowed)
+	    	tmpQuery = qquery + "+exclude:retweets";
+	    
 	    Query query = new Query(qquery);
-
 	    query.count(nbTweet); //on limite le nombre de query, l'api recommande 100 max
 
 	    QueryResult result = null;
@@ -47,6 +58,7 @@ public class RetrieveTweet {
 					status.getCreatedAt(),
 					qquery);
 	        listTweet.add(ts);
+	        	
 
 	        System.out.println(ts);
 		}
