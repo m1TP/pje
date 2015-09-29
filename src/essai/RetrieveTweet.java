@@ -41,7 +41,7 @@ public class RetrieveTweet {
 		for (Status status : result.getTweets()) {
 			TweetSkeleton ts = new TweetSkeleton(
 					status.getId(),
-					status.getUser().getDescription(),
+					status.getUser().getName(),
 					status.getText(),
 					status.getCreatedAt(),
 					qquery);
