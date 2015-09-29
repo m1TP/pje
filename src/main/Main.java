@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		RetrieveTweet rt = new RetrieveTweet();
-		ControllerCSV csv = new ControllerCSV(new File("db.csv"));
+		//ControllerCSV csv = new ControllerCSV(new File("db.csv"));
 		//csv.doAll(rt.gogo());
 		//rt.gogo("rugby",2);
 		new InterfacePrincipale();
