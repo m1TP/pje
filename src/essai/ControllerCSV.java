@@ -82,7 +82,7 @@ public class ControllerCSV {
 			if(!set.contains(elt.getId()))
 			{	
 				set.add(elt.getId());
-				this.listNewTweet.add(elt.toString());
+				this.listNewTweet.add(elt.cleanData(elt.toString()));
 			}
 			else
 			{

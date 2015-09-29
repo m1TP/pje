@@ -28,7 +28,7 @@ public class RetrieveTweet {
 	public List<TweetSkeleton> queryTwitter(String sujetTweet, int nbTweet, boolean retweetAllowed){
 	    Twitter twitter = TwitterFactory.getSingleton();
 	    String qquery = sujetTweet;
-	    String tmpQuery = "";
+	    String tmpQuery = qquery;
 	    if (!retweetAllowed)
 	    	tmpQuery = qquery + "+exclude:retweets";
 	    
@@ -58,7 +58,7 @@ public class RetrieveTweet {
 					status.getCreatedAt(),
 					qquery);
 	        listTweet.add(ts);
-	        	
+	        System.out.println(ts.cleanData(ts.toString()));
 
 	        System.out.println(ts);
 		}

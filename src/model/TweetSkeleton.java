@@ -51,17 +51,19 @@ public class TweetSkeleton {
 	 * @param text
 	 * @return
 	 */
-	public String nettoyage(String text)
+	public String cleanData(String text)
 	{
+		String regURL             = "http\\w?:\\S*"; //filter out URL
 		String regWhiteSpace      = "\\s";
 		String regSpecialSymbol   = "(@|#|RT)[a-zA-­Z0‐9?:\\.!_,]*"; //filter for #,@ and RT
-		String regPunctuation     = "([\"!:?.;,])";
-		String regCurrency        = "(\\p{Sc})\\d[.\\d]*";
-		String regPercentage      = "\\d{1,2}%";
+		String regPunctuation     = "([\"!:?.;,])"; //find a special char to put space around it
+		String regCurrency        = "(\\p{Sc})\\d[.\\d]*"; //look for monetary symbol
+		String regPercentage      = "\\d{1,2}%"; 
 		
 		
 		StringBuffer sb = new StringBuffer(text);
 		
+		sb = replacePattern(sb, regURL, "URL");
 		sb = replacePattern(sb, regWhiteSpace, " ");
 		sb = replacePattern(sb, regSpecialSymbol,"$1");
 		sb = replacePattern(sb, regPunctuation, " $1 ");
@@ -114,7 +116,7 @@ public class TweetSkeleton {
 		sb.append(separator);
 		sb.append(annotation);
 		
-		return sb.toString().replaceAll("\\s"," "); //remove whitespace and non visible char
+		return sb.toString(); 
 	}
 
 	public long getId() {
