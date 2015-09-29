@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.util.ArrayList;
 
+import view.InterfacePrincipale;
 import essai.ControllerCSV;
 import essai.RetrieveTweet;
 
@@ -16,7 +17,8 @@ public class Main {
 		RetrieveTweet rt = new RetrieveTweet();
 		//ControllerCSV csv = new ControllerCSV(new File("db.csv"));
 		//csv.doAll(rt.gogo());
-		rt.gogo();
+		//rt.gogo("rugby",2);
+		new InterfacePrincipale();
 	
 	}
 
