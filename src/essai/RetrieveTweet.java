@@ -24,16 +24,22 @@ public class RetrieveTweet {
 		return queryTwitter(sujetTweet,nbTweet,false);
 	}
 	
-	
-	public List<TweetSkeleton> queryTwitter(String sujetTweet, int nbTweet, boolean retweetAllowed){
+	/**
+	 * Query the Twitter website to retrieve data linked to a specified subject.
+	 * @param subjectTweet The subject we want to get data about.
+	 * @param nbTweet The number of different tweet we want to get. The number is capped at 100.
+	 * @param retweetAllowed A boolean showing if the data we get will contain retweet or not. (we suggest to disallow it)
+	 * @return A list of tweets and their respective data. 
+	 */
+	public List<TweetSkeleton> queryTwitter(String subjectTweet, int nbTweet, boolean retweetAllowed){
 	    Twitter twitter = TwitterFactory.getSingleton();
-	    String qquery = sujetTweet;
+	    String qquery = subjectTweet;
 	    String tmpQuery = qquery;
 	    if (!retweetAllowed)
-	    	tmpQuery = qquery + "+exclude:retweets";
+	    	tmpQuery = qquery + " +exclude:retweets";
 	    
 	    Query query = new Query(qquery);
-	    query.count(nbTweet); //on limite le nombre de query, l'api recommande 100 max
+	    query.count(nbTweet>100?100:nbTweet); //on limite le nombre de query, l'api recommande 100 max
 
 	    QueryResult result = null;
 		try {
