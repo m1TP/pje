@@ -21,6 +21,7 @@ public class RetrieveTweet {
 	    Twitter twitter = TwitterFactory.getSingleton();
 	    String qquery = "rugby";
 	    Query query = new Query(qquery);
+	    //query.setLang("fr_FR");
 	    query.count(50); //on limite le nombre de query, l'api recommande 100 max
 	    QueryResult result = null;
 		try {
@@ -37,7 +38,6 @@ public class RetrieveTweet {
 		}
 		
 		List<TweetSkeleton> listTweet = new ArrayList<TweetSkeleton>();
-		
 		for (Status status : result.getTweets()) {
 			TweetSkeleton ts = new TweetSkeleton(
 					status.getId(),
@@ -46,6 +46,7 @@ public class RetrieveTweet {
 					status.getCreatedAt(),
 					qquery);
 	        listTweet.add(ts);
+	        //System.out.println(ts);
 	    }
 		return listTweet;
 		
