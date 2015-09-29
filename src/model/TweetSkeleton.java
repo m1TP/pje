@@ -22,8 +22,8 @@ public class TweetSkeleton {
 	/** The note of the tweet
 	 * 	-1 is not annotated
 	 *  0 is bad mood
-	 *  1 is neutral
-	 *  2 is good */
+	 *  2 is neutral
+	 *  4 is good */
 	protected int annotation; 
 	
 	/**

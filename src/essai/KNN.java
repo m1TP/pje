@@ -1,6 +1,5 @@
 package essai;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.TweetSkeleton;
@@ -83,9 +82,9 @@ public class KNN {
 				no_annotation+=1;
 			else if (tmp == 0)
 				negatif +=1;
-			else if (tmp == 1)
-				neutral +=1;
 			else if (tmp == 2)
+				neutral +=1;
+			else if (tmp == 4)
 				positif +=1;
 			else
 				System.out.println("PROBLEM ANNOTATION NON CONFORM");
