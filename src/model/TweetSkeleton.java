@@ -48,20 +48,20 @@ public class TweetSkeleton {
 	 * -remove add white space before and after punctuation
 	 * -replace dollar/euro value with variable
 	 * -replace percentage value with variable
-	 * @param text
-	 * @return
+	 * @param text  The text to be cleaned
+	 * @return The new String with the replacement done
 	 */
 	public String cleanData(String text)
 	{
 		String regURL             = "http\\w?:\\S*"; //filter out URL
 		String regWhiteSpace      = "\\s";
-		String regSpecialSymbol   = "(@|#|RT)[a-zA-­Z0‐9?:\\.!_,]*"; //filter for #,@ and RT
+		String regSpecialSymbol   = "(@|#|RT)[\\p{Alnum}\\p{Punct}éèêàûôï]*"; //filter for #,@ and RT
 		String regPunctuation     = "([\"!:?.;,])"; //find a special char to put space around it
 		String regCurrency        = "(\\p{Sc})\\d[.\\d]*"; //look for monetary symbol
 		String regPercentage      = "\\d{1,2}%"; 
 		
 		
-		StringBuffer sb = new StringBuffer(text);
+		StringBuffer sb = new StringBuffer(text); 
 		
 		sb = replacePattern(sb, regURL, "URL");
 		sb = replacePattern(sb, regWhiteSpace, " ");
@@ -70,12 +70,12 @@ public class TweetSkeleton {
 		sb = replacePattern(sb, regCurrency, "$1XXX");
 		sb = replacePattern(sb, regPercentage, "XX%");
 		
-		System.out.println(sb);
-		return "";
+		//System.out.println(sb);
+		return sb.toString();
 	}
 	
 	/**
-	 * Search a motif according to a specified regex in a text, and replace occurence of found motif with a specified String
+	 * Search a motif according to a specified regex in a text, and replace occurences of found motif with a specified string
 	 * @param text The text the search is made in
 	 * @param reg  The regex to use to look for motif
 	 * @param replace The String to replace the motif with 
