@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import essai.RetrieveTweet;
 import view.InterfacePrincipale;
+import view.InterfaceRecherche;
 
 public class ControlerRecherche implements ActionListener {
 
@@ -20,7 +21,8 @@ public class ControlerRecherche implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		try {	
 			if(!view.getMotCle().getText().equals("") && !view.getNbTweet().getText().equals(""))
-				new RetrieveTweet().gogo(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText()));
+				new InterfaceRecherche(
+						new RetrieveTweet().queryTwitter(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText())));
 		} catch (Exception e) {	e.printStackTrace();}
 		
 	}

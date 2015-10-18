@@ -12,7 +12,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import control.ControlerRecherche;
@@ -21,16 +20,22 @@ public class InterfacePrincipale {
 	private JFrame frame;
 	private JPanel panelFrame;
 	private JPanel panelBoiteOutil;
+	
+	private JPanel panelSujet;
 	private JLabel labelSujet;
 	private JTextField sujet;
+	private JPanel panelNbTweet;
 	private JLabel labelNbTweet;
 	private JTextField nbTweet;
-	private JPanel panelAffichage;
+	
+	
+	private JPanel panelBouton;
 	private JButton boutonRecherche;
 	private JMenuBar menuBar;
 	private JMenu menu;
 	private JMenuItem proprieties;
-	private JTable table;
+	
+
 	
 	@SuppressWarnings("unused")
 	private int nbtweet;
@@ -44,7 +49,7 @@ public class InterfacePrincipale {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
-		frame.setSize(600,300);
+		frame.setSize(500,200);
 		frame.setLayout(new BorderLayout());
 		frame.setResizable(false);
 		
@@ -64,27 +69,37 @@ public class InterfacePrincipale {
 		frame.add("North",menuBar);
 		
 		//ajout des composants de la fenetre
-		labelSujet= new JLabel("Mot-cle :");
-		labelNbTweet = new JLabel("Nombre de tweet:");
+		panelSujet = new JPanel(new BorderLayout());
+		labelSujet= new JLabel(" Mot-cle :");
 		sujet = new JTextField("Equipe de France de rugby");
+		panelSujet.add(labelSujet, BorderLayout.NORTH);
+		panelSujet.add(sujet, BorderLayout.CENTER);
+		
+		panelNbTweet = new JPanel(new BorderLayout());
+		labelNbTweet = new JLabel("Nombre de tweet:");
 		nbTweet = new JTextField("1");
+		panelNbTweet.add(labelNbTweet, BorderLayout.NORTH);
+		panelNbTweet.add(nbTweet, BorderLayout.CENTER);
 		
 		panelBoiteOutil = new JPanel();
-		panelBoiteOutil.setLayout(new GridLayout(5, 1));
-		panelBoiteOutil.add(labelSujet);
-		panelBoiteOutil.add(sujet);
-		panelBoiteOutil.add(labelNbTweet);
-		panelBoiteOutil.add(nbTweet);
+		panelBoiteOutil.setLayout(new GridLayout(3, 1));
+		panelBoiteOutil.add(panelSujet);
+		panelBoiteOutil.add(panelNbTweet);
 		
 		//creation des boutons
 		boutonRecherche = new JButton("Rechercher");
 		boutonRecherche.addActionListener(new ControlerRecherche(this));					
 		
-		panelBoiteOutil.add(boutonRecherche);
+		panelBouton = new JPanel();
+		panelBouton.add(boutonRecherche);
+		panelBoiteOutil.add(panelBouton);
+		
+		
+		
 		panelFrame.add(panelBoiteOutil);
 		
 		//affichage des tweets
-		panelAffichage = new JPanel();
+	/*	panelAffichage = new JPanel();
 		
 		String [] nameColumn = {"ID","Alias","Tweet","Date","Annotation"};
 		Object[][] data = {
@@ -105,7 +120,7 @@ public class InterfacePrincipale {
 		panelAffichage.add(table);
 		
 		
-		panelFrame.add(panelAffichage);
+		panelFrame.add(panelAffichage);*/
 		frame.add(panelFrame);
 		frame.setVisible(true);
 		
