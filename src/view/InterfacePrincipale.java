@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Window.Type;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import control.ControlerRecherche;
@@ -33,8 +35,10 @@ public class InterfacePrincipale {
 	private JButton boutonRecherche;
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem proprieties;
-	
+	private JMenuItem exit;
+	private ButtonGroup optionAnnotation;
+	private JRadioButton radio1;
+	private JRadioButton radio2;
 
 	
 	@SuppressWarnings("unused")
@@ -58,17 +62,44 @@ public class InterfacePrincipale {
 		panelFrame.setBackground(new Color(102,204,255));
 		
 		
+		
+		
+		
+		/**
+		 * Realisation d'un menu avec la possibilitée de modifier l'annotation des tweets souhaités.
+		 */
 		menuBar = new JMenuBar();
 		menu = new JMenu("Options");
-		proprieties = new JMenuItem("Proprietes");
-		/** Controller a implementer **/
-		//m.addActionListener(new Controller());
+		
+		optionAnnotation = new ButtonGroup();
+		radio1 = new JRadioButton("Annotation manuelle",true);
+		radio1.setMnemonic(0);
+		radio2 = new JRadioButton("Annotation automatique");
+		radio2.setMnemonic(1);
+		optionAnnotation.add(radio1);
+		optionAnnotation.add(radio2);
+		menu.add(radio1);
+		menu.add(radio2);
+		
+		
 		menu.addSeparator();
-		menu.add(proprieties);
+		
+		exit = new JMenuItem("Exit");
+		/** Controller a implementer **/
+		//exit.addActionListener(new Controller());
+		menu.add(exit);
+		
 		menuBar.add(menu);
 		frame.add("North",menuBar);
 		
-		//ajout des composants de la fenetre
+		
+		
+		
+		
+		
+		/**
+		 * Ajout des composants de la fenetre
+		 */
 		panelSujet = new JPanel(new BorderLayout());
 		labelSujet= new JLabel(" Mot-cle :");
 		sujet = new JTextField("Equipe de France de rugby");
@@ -86,9 +117,13 @@ public class InterfacePrincipale {
 		panelBoiteOutil.add(panelSujet);
 		panelBoiteOutil.add(panelNbTweet);
 		
+		
+		
+		
+		
 		//creation des boutons
-		boutonRecherche = new JButton("Rechercher");
-		boutonRecherche.addActionListener(new ControlerRecherche(this));					
+		boutonRecherche = new JButton("Search");
+		boutonRecherche.addActionListener(new ControlerRecherche(this,optionAnnotation));					
 		
 		panelBouton = new JPanel();
 		panelBouton.add(boutonRecherche);
