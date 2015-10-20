@@ -36,13 +36,12 @@ public class ControlerSaveManuel implements ActionListener {
 				listTweets.get(i).setAnnotation(0);	
 			else
 				listTweets.get(i).setAnnotation(-1);
-			System.out.println("yolooooooooooo");
 		}
 		
 		//Save sur le fichier CSV
 		if(data.length>0)
 		{
-			ControllerCSV csv = new ControllerCSV(new File( listTweets.get(0).getQuery().toLowerCase()+".csv"));
+			ControllerCSV csv = new ControllerCSV(new File("db"+File.separator+listTweets.get(0).getQuery().toLowerCase()+".csv"));
 			csv.doAll(listTweets);
 		}
 		//And close frame
