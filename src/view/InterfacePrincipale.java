@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Window.Type;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,7 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTable;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 //import control.ControlerRecherche;
@@ -21,16 +22,24 @@ public class InterfacePrincipale {
 	private JFrame frame;
 	private JPanel panelFrame;
 	private JPanel panelBoiteOutil;
+	
+	private JPanel panelSujet;
 	private JLabel labelSujet;
 	private JTextField sujet;
+	private JPanel panelNbTweet;
 	private JLabel labelNbTweet;
 	private JTextField nbTweet;
-	private JPanel panelAffichage;
+	
+	
+	private JPanel panelBouton;
 	private JButton boutonRecherche;
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem proprieties;
-	private JTable table;
+	private JMenuItem exit;
+	private ButtonGroup optionAnnotation;
+	private JRadioButton radio1;
+	private JRadioButton radio2;
+
 	
 	@SuppressWarnings("unused")
 	private int nbtweet;
@@ -44,7 +53,7 @@ public class InterfacePrincipale {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
-		frame.setSize(600,300);
+		frame.setSize(500,200);
 		frame.setLayout(new BorderLayout());
 		frame.setResizable(false);
 		
@@ -53,38 +62,80 @@ public class InterfacePrincipale {
 		panelFrame.setBackground(new Color(102,204,255));
 		
 		
+		
+		
+		
+		/**
+		 * Realisation d'un menu avec la possibilit�e de modifier l'annotation des tweets souhait�s.
+		 */
 		menuBar = new JMenuBar();
 		menu = new JMenu("Options");
-		proprieties = new JMenuItem("Proprietes");
-		/** Controller a implementer **/
-		//m.addActionListener(new Controller());
+		
+		optionAnnotation = new ButtonGroup();
+		radio1 = new JRadioButton("Annotation manuelle",true);
+		radio1.setMnemonic(0);
+		radio2 = new JRadioButton("Annotation automatique");
+		radio2.setMnemonic(1);
+		optionAnnotation.add(radio1);
+		optionAnnotation.add(radio2);
+		menu.add(radio1);
+		menu.add(radio2);
+		
+		
 		menu.addSeparator();
-		menu.add(proprieties);
+		
+		exit = new JMenuItem("Exit");
+		/** Controller a implementer **/
+		//exit.addActionListener(new Controller());
+		menu.add(exit);
+		
 		menuBar.add(menu);
 		frame.add("North",menuBar);
 		
-		//ajout des composants de la fenetre
-		labelSujet= new JLabel("Mot-cle :");
-		labelNbTweet = new JLabel("Nombre de tweet:");
+		
+		
+		
+		
+		
+		/**
+		 * Ajout des composants de la fenetre
+		 */
+		panelSujet = new JPanel(new BorderLayout());
+		labelSujet= new JLabel(" Mot-cle :");
 		sujet = new JTextField("Equipe de France de rugby");
+		panelSujet.add(labelSujet, BorderLayout.NORTH);
+		panelSujet.add(sujet, BorderLayout.CENTER);
+		
+		panelNbTweet = new JPanel(new BorderLayout());
+		labelNbTweet = new JLabel("Nombre de tweet:");
 		nbTweet = new JTextField("1");
+		panelNbTweet.add(labelNbTweet, BorderLayout.NORTH);
+		panelNbTweet.add(nbTweet, BorderLayout.CENTER);
 		
 		panelBoiteOutil = new JPanel();
-		panelBoiteOutil.setLayout(new GridLayout(5, 1));
-		panelBoiteOutil.add(labelSujet);
-		panelBoiteOutil.add(sujet);
-		panelBoiteOutil.add(labelNbTweet);
-		panelBoiteOutil.add(nbTweet);
+		panelBoiteOutil.setLayout(new GridLayout(3, 1));
+		panelBoiteOutil.add(panelSujet);
+		panelBoiteOutil.add(panelNbTweet);
+		
+		
+		
+		
 		
 		//creation des boutons
-		boutonRecherche = new JButton("Rechercher");
-//		boutonRecherche.addActionListener(new ControlerRecherche(this));					
+				
+
+		boutonRecherche = new JButton("Search");
+		boutonRecherche.addActionListener(new ControlerRecherche(this,optionAnnotation));					
 		
-		panelBoiteOutil.add(boutonRecherche);
+		panelBouton = new JPanel();
+		panelBouton.add(boutonRecherche);
+		panelBoiteOutil.add(panelBouton);
+		
+		
 		panelFrame.add(panelBoiteOutil);
 		
 		//affichage des tweets
-		panelAffichage = new JPanel();
+	/*	panelAffichage = new JPanel();
 		
 		String [] nameColumn = {"ID","Alias","Tweet","Date","Annotation"};
 		Object[][] data = {
@@ -105,7 +156,7 @@ public class InterfacePrincipale {
 		panelAffichage.add(table);
 		
 		
-		panelFrame.add(panelAffichage);
+		panelFrame.add(panelAffichage);*/
 		frame.add(panelFrame);
 		frame.setVisible(true);
 		
