@@ -6,7 +6,12 @@ import model.TweetSkeleton;
 
 public class KNN {
 	
-	
+	/**
+	 * Compute the distance between 2 string as (length of string1 + length of string2 - sharedWord)/(length of string1 + length of string2)
+	 * @param ts1
+	 * @param ts2
+	 * @return
+	 */
 	public static int distance1 (TweetSkeleton ts1, TweetSkeleton ts2)
 	{
 		String[] words1 = ts1.getText().split(" ");
@@ -22,7 +27,7 @@ public class KNN {
 			}
 		}
 		
-		return (words1.length + words2.length - (motsCommuns*2))/ words1.length; //?????? verifier ca!
+		return (words1.length + words2.length - (motsCommuns*2))/ (words1.length + words2.length); 
 	}
 	
 	public static void knn_annotation(TweetSkeleton ts, int neighbours, List<TweetSkeleton> learningDB)
