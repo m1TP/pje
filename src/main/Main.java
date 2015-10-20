@@ -27,7 +27,7 @@ public class Main {
 		/*
 		KeywordsAnnotation ka = new KeywordsAnnotation();
 		 
-		TweetSkeleton ts1 = new TweetSkeleton(0, "", " satisfaction sad angered laisse pantois :p ", new Date(), "");
+		TweetSkeleton ts1 = new TweetSkeleton(0, "", "lol ", new Date(), "");
 		ka.annotateTweet(ts1);
 		System.out.println(ts1.getAnnotation());
 		//*/

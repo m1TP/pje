@@ -71,6 +71,7 @@ public class TweetSkeleton {
 		sb = replacePattern(sb, regPercentage, "XX%");
 		
 		//System.out.println(sb);
+		sb.append(" "); //pour l'annotation automatique on a besoin d'un espace en fin de chaine, au cas ou.
 		return sb.toString();
 	}
 	
