@@ -39,7 +39,7 @@ public class ControlerSaveManuel implements ActionListener {
 		}
 		
 		//Save sur le fichier CSV
-		//ControllerCSV csv = new ControllerCSV(new File("db.csv"));
+		//ControllerCSV csv = new ControllerCSV(new File( listTweets.get(1).getQuery()+".csv"));
 		//csv.doAll(listTweets);
 	
 		//And close frame
