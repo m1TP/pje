@@ -66,9 +66,9 @@ public class RetrieveTweet {
 					status.getCreatedAt(),
 					qquery);
 	        listTweet.add(ts);
-	        System.out.println(ts.cleanData(ts.toString()));
-
 	        System.out.println(ts);
+	        ts.setData(ts.cleanData(ts.getText()));
+	        System.out.println(ts.toString());
 		}
 
 		return listTweet;

@@ -100,6 +100,11 @@ public class TweetSkeleton {
 			this.annotation=n;
 	}
 	
+	public void setData(String text)
+	{
+		this.text = text;
+	}
+	
 	public String toString()
 	{
 		String separator = ";";
@@ -115,6 +120,7 @@ public class TweetSkeleton {
 		sb.append(query);
 		sb.append(separator);
 		sb.append(annotation);
+		
 		
 		return sb.toString(); 
 	}

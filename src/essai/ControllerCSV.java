@@ -47,6 +47,7 @@ public class ControllerCSV {
 		String separator = ";";
 		String line = "";
 		try {
+			this.file.createNewFile(); //create the file if it didnt exists before, does nothing ig the file already exist
 			br = new BufferedReader(new FileReader(this.file));
 			while ((line = br.readLine()) != null) 
 			{
@@ -82,7 +83,8 @@ public class ControllerCSV {
 			if(!set.contains(elt.getId()))
 			{	
 				set.add(elt.getId());
-				this.listNewTweet.add(elt.cleanData(elt.toString()));
+				elt.setData(elt.cleanData(elt.getText())); //on clean la data 
+				this.listNewTweet.add(elt.toString());
 			}
 			else
 			{
