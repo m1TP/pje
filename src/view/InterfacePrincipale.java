@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import control.ControlerExit;
 import control.ControlerRecherche;
 
+
 public class InterfacePrincipale {
 	private JFrame frame;
 	private JPanel panelFrame;
@@ -67,7 +68,7 @@ public class InterfacePrincipale {
 		
 		
 		/**
-		 * Realisation d'un menu avec la possibilitée de modifier l'annotation des tweets souhaités.
+		 * Realisation d'un menu avec la possibilitï¿½e de modifier l'annotation des tweets souhaitï¿½s.
 		 */
 		menuBar = new JMenuBar();
 		menu = new JMenu("Options");
@@ -126,13 +127,14 @@ public class InterfacePrincipale {
 		
 		
 		//creation des boutons
+				
+
 		boutonRecherche = new JButton("Search");
 		boutonRecherche.addActionListener(new ControlerRecherche(this,optionAnnotation));					
 		
 		panelBouton = new JPanel();
 		panelBouton.add(boutonRecherche);
 		panelBoiteOutil.add(panelBouton);
-		
 		
 		
 		panelFrame.add(panelBoiteOutil);

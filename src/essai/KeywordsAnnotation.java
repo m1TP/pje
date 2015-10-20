@@ -40,6 +40,7 @@ public class KeywordsAnnotation {
 		ts.setAnnotation(res);
 	}
 	
+
 	public int countWords(String[] tabExpression, String text){
 		int res=0;
 		for(int i=0;i<tabExpression.length;i++){
