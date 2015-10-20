@@ -17,7 +17,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 
+import control.ControlerExit;
 import control.ControlerRecherche;
+
 
 public class InterfacePrincipale {
 	private JFrame frame;
@@ -40,7 +42,7 @@ public class InterfacePrincipale {
 	private ButtonGroup optionAnnotation;
 	private JRadioButton radio1;
 	private JRadioButton radio2;
-
+	private JRadioButton radio3;
 	
 	@SuppressWarnings("unused")
 	private int nbtweet;
@@ -77,17 +79,20 @@ public class InterfacePrincipale {
 		radio1.setMnemonic(0);
 		radio2 = new JRadioButton("Annotation automatique");
 		radio2.setMnemonic(1);
+		radio3 = new JRadioButton("Annotation par KNN");
+		radio3.setMnemonic(2);
 		optionAnnotation.add(radio1);
 		optionAnnotation.add(radio2);
+		optionAnnotation.add(radio3);
 		menu.add(radio1);
 		menu.add(radio2);
-		
+		menu.add(radio3);
 		
 		menu.addSeparator();
 		
 		exit = new JMenuItem("Exit");
 		/** Controller a implementer **/
-		//exit.addActionListener(new Controller());
+		exit.addActionListener(new ControlerExit(frame));
 		menu.add(exit);
 		
 		menuBar.add(menu);
