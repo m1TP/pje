@@ -16,7 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-//import control.ControlerRecherche;
+
+import control.ControlerRecherche;
 
 public class InterfacePrincipale {
 	private JFrame frame;
