@@ -3,13 +3,11 @@ package main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-
 import model.TweetSkeleton;
-
-import view.InterfacePrincipale;
 import essai.ControllerCSV;
 import essai.KeywordsAnnotation;
 import essai.RetrieveTweet;
+import view.InterfacePrincipale;
 
 public class Main {
 

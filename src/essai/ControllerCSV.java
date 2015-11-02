@@ -129,5 +129,13 @@ public class ControllerCSV {
 		addNewTweetToCSV(l);
 		writeToCSV();
 	}
+
+	/**
+	 * Return the listTweet
+	 * @return listTweet
+	 */
+	public List<String> getListTweet() {
+		return listTweet;
+	}
 	
 }

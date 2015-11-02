@@ -43,6 +43,7 @@ public class InterfacePrincipale {
 	private JRadioButton radio1;
 	private JRadioButton radio2;
 	private JRadioButton radio3;
+	private JRadioButton radio4;
 	
 	@SuppressWarnings("unused")
 	private int nbtweet;
@@ -81,12 +82,16 @@ public class InterfacePrincipale {
 		radio2.setMnemonic(1);
 		radio3 = new JRadioButton("Annotation par KNN");
 		radio3.setMnemonic(2);
+		radio4 = new JRadioButton("Annotation par Baysienne");
+		radio4.setMnemonic(3);
 		optionAnnotation.add(radio1);
 		optionAnnotation.add(radio2);
 		optionAnnotation.add(radio3);
+		optionAnnotation.add(radio4);
 		menu.add(radio1);
 		menu.add(radio2);
 		menu.add(radio3);
+		menu.add(radio4);
 		
 		menu.addSeparator();
 		
