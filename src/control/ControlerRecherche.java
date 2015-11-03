@@ -46,8 +46,6 @@ public class ControlerRecherche implements ActionListener {
 						tmp.setData((tmp.cleanData(tmp.getText())));
 						methode.annotateTweet(tmp);
 						elt.setAnnotation(tmp.getAnnotation());
-						System.out.println(elt);
-						System.out.println(tmp);
 					}
 					
 					new InterfaceRecherche(list);
