@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +40,6 @@ public class ControllerCSV {
 	/** Open the csv file specified, and reads its content.
 	 * Builds a set of id, and a list of tweets.
 	 * The usecase for the set is to compare the id of new tweet to detect doublon.
-	 * 
 	 */
 	public void readCSV()
 	{
@@ -47,7 +47,7 @@ public class ControllerCSV {
 		String separator = ";";
 		String line = "";
 		try {
-			this.file.createNewFile(); //create the file if it didnt exists before, does nothing ig the file already exist
+			this.file.createNewFile(); //create the file if it didnt exists before, does nothing if the file already exist
 			br = new BufferedReader(new FileReader(this.file));
 			while ((line = br.readLine()) != null) 
 			{
@@ -136,6 +136,19 @@ public class ControllerCSV {
 	 */
 	public List<String> getListTweet() {
 		return listTweet;
+	}
+	
+	public List<TweetSkeleton> StringToTweet()
+	{
+		String separator = ";";
+		List<TweetSkeleton> ts = new ArrayList<TweetSkeleton>();
+		for(String s : this.listTweet)
+		{
+			String[] tab = s.split(separator);
+			System.out.println(s);
+			ts.add(new TweetSkeleton(tab[0], tab[1], tab[2], tab[3] , tab[4], tab[5]));
+		}
+		return ts;
 	}
 	
 }

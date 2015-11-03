@@ -1,6 +1,10 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +45,23 @@ public class TweetSkeleton {
 		this.annotation=-1; 
 	}
 	
+	public TweetSkeleton(String id,String user,String text,String date, String query,String annotation)
+	{
+		this.id= Long.parseLong(id);
+		this.user=user;
+		this.text=text;
+		DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+		try {
+			this.date= df.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.query=query;
+		this.annotation=Integer.parseInt(annotation);		
+	}
+	
+	
 	/**
 	 * Clean a body of text of various bad input such as:
 	 * -replace \n \t \r par un espace 
@@ -59,7 +80,7 @@ public class TweetSkeleton {
 		String regPunctuation     = "([\"!:?.;,])"; //find a special char to put space around it
 		String regCurrency        = "(\\p{Sc})\\d[.\\d]*"; //look for monetary symbol
 		String regPercentage      = "\\d{1,2}%"; 
-		
+		String regPointVirgule    = ";"; //on va trouver les ; et remplacer par :
 		
 		StringBuffer sb = new StringBuffer(text); 
 		
@@ -69,6 +90,7 @@ public class TweetSkeleton {
 		sb = replacePattern(sb, regPunctuation, " $1 ");
 		sb = replacePattern(sb, regCurrency, "$1XXX");
 		sb = replacePattern(sb, regPercentage, "XX%");
+		sb = replacePattern(sb, regPointVirgule, ":");
 		
 		//System.out.println(sb);
 		sb.append(" "); //pour l'annotation automatique on a besoin d'un espace en fin de chaine, au cas ou.
@@ -95,7 +117,7 @@ public class TweetSkeleton {
 	
 	public void setAnnotation(int n)
 	{
-		if(n<-1 && n>2)
+		if(n<-1 && n>4)
 			throw new Error("bad number");
 		else
 			this.annotation=n;
