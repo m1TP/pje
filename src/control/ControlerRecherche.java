@@ -47,15 +47,6 @@ public class ControlerRecherche implements ActionListener {
 					//Recupération des tweets dans la base et création d'une list de TweetSkeleton
 					List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
 					for(String tweet : db.getListTweet()){
-						/*System.out.println("Ligne Tweet : "+tweet);
-						System.out.println("Id Tweet : "+tweet.substring(0, 18));
-						System.out.println("User Tweet : "+tweet.substring(19, 19+tweet.substring(19, tweet.length()-38).lastIndexOf(";")));
-						System.out.println("Text Tweet : "+tweet.substring(19, tweet.length()-38).substring(tweet.substring(19, tweet.length()-33-view.getMotCle().getText().length()).indexOf(";")+1));
-						System.out.println("Date Tweet : "+tweet.substring(tweet.length()-32-view.getMotCle().getText().length(), tweet.length()-3-view.getMotCle().getText().length()));
-						System.out.println("Query Tweet : "+tweet.substring(tweet.length()-2-view.getMotCle().getText().length(), tweet.length()-2));
-						System.out.println("Annotation Tweet :"+tweet.substring(tweet.lastIndexOf(";")+1));
-						System.out.println(' ');*/
-						
 						TweetSkeleton tmp = TweetSkeleton.converterCSVTweetSkeleton(tweet, view.getMotCle().getText());
 						tweetDb.add(tmp);
 					}

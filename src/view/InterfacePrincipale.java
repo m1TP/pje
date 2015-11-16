@@ -37,7 +37,7 @@ public class InterfacePrincipale {
 	private JPanel panelBouton;
 	private JButton boutonRecherche;
 	private JMenuBar menuBar;
-	private JMenu menu;
+	private JMenu menuOption;
 	private JMenuItem exit;
 	private ButtonGroup optionAnnotation;
 	private JRadioButton radio1;
@@ -73,7 +73,7 @@ public class InterfacePrincipale {
 		 * Realisation d'un menu avec la possibilit�e de modifier l'annotation des tweets souhait�s.
 		 */
 		menuBar = new JMenuBar();
-		menu = new JMenu("Options");
+		menuOption = new JMenu("Options");
 		
 		optionAnnotation = new ButtonGroup();
 		radio1 = new JRadioButton("Annotation manuelle",true);
@@ -88,19 +88,20 @@ public class InterfacePrincipale {
 		optionAnnotation.add(radio2);
 		optionAnnotation.add(radio3);
 		optionAnnotation.add(radio4);
-		menu.add(radio1);
-		menu.add(radio2);
-		menu.add(radio3);
-		menu.add(radio4);
 		
-		menu.addSeparator();
+		menuOption.add(radio1);
+		menuOption.add(radio2);
+		menuOption.add(radio3);
+		menuOption.add(radio4);
+		
+		menuOption.addSeparator();
 		
 		exit = new JMenuItem("Exit");
 		/** Controller a implementer **/
 		exit.addActionListener(new ControlerExit(frame));
-		menu.add(exit);
+		menuOption.add(exit);
 		
-		menuBar.add(menu);
+		menuBar.add(menuOption);
 		frame.add("North",menuBar);
 		
 		

@@ -9,6 +9,11 @@ import essai.ControllerCSV;
 import model.TweetSkeleton;
 import view.InterfaceRecherche;
 
+/**
+ * Controler qui permet de sauvegarder des données d'une liste de tweet annote sur un fichier csv 
+ * @author Christopher
+ *
+ */
 public class ControlerSave implements ActionListener {
 
 	private Object [][] data;
@@ -23,9 +28,11 @@ public class ControlerSave implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Save tweets
 		
-		// Modifie la liste de TweetSkeleton contenant les tweets en fonction de l'annotation souhaitï¿½
+		/*
+		 *  Modifie la liste de TweetSkeleton contenant les tweets
+         *  en fonction de l'annotation souhaite
+		 */
 		for(int i=0;i<data.length;i++){
 			if(data[i][2]=="Positif")
 				listTweets.get(i).setAnnotation(2);
@@ -37,13 +44,14 @@ public class ControlerSave implements ActionListener {
 				listTweets.get(i).setAnnotation(-1);
 		}
 		
-		//Save sur le fichier CSV
+		//Sauvegarde les donnees sur le fichier csv
 		if(data.length>0)
 		{
-			ControllerCSV csv = new ControllerCSV(new File("db"+File.separator+listTweets.get(0).getQuery().toLowerCase()+".csv"));
+			ControllerCSV csv = new ControllerCSV(
+					new File("db"+File.separator+listTweets.get(0).getQuery().toLowerCase()+".csv"));
 			csv.doAll(listTweets);
 		}
-		//And close frame
+		//Fermeture de la fenetre
 		frame.dispose();
 	}
 
