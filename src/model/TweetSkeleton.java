@@ -172,4 +172,32 @@ public class TweetSkeleton {
 		return annotation;
 	}
 	
+	/**
+	 * Fonction qui réparti les données d'une tweet récupérer dans un csv en tweet skeleton
+	 * @param tweetCSV
+	 * @return
+	 * @throws ParseException 
+	 */
+	public static TweetSkeleton converterCSVTweetSkeleton(String tweet, String motCle) throws ParseException{
+		String id;
+		String user;
+		String text;
+		String date;
+		String query;
+		String annotation;
+		
+		id = tweet.substring(0, 18);
+		user = tweet.substring(19, 19+tweet.substring(19, tweet.length()-38).lastIndexOf(";"));
+		text = tweet.substring(19, tweet.length()-38).substring(tweet.substring(19, tweet.length()-33-motCle.length()).indexOf(";")+1);
+		date = tweet.substring(tweet.length()-32-motCle.length(), tweet.length()-3-motCle.length());
+		//CHANGEMENT D'HORAIRE
+		if(tweet.substring(tweet.length()-32-motCle.length(), tweet.length()-3-motCle.length()).charAt(0)==';'){
+			date = tweet.substring(tweet.length()-31-motCle.length(), tweet.length()-3-motCle.length());
+		}
+		query = tweet.substring(tweet.length()-2-motCle.length(), tweet.length()-2);
+		annotation = tweet.substring(tweet.lastIndexOf(";")+1);
+		
+		return new TweetSkeleton(id, user, text, date, query, annotation);
+	}
+	
 }

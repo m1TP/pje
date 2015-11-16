@@ -3,12 +3,7 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -33,54 +28,6 @@ public class ControlerRecherche implements ActionListener {
 		
 	}
 	
-	public Date convertirDate(String date) throws ParseException{
-		int year = Integer.parseInt(date.substring(date.length()-4));
-		
-		String month = date.substring(4, 7);
-		System.out.println(date.substring(4, 7));
-		int day = Integer.parseInt(date.substring(8, 10));
-		System.out.println(date.substring(8, 10));
-		int hh = Integer.parseInt(date.substring(11,13));
-		System.out.println(date.substring(11, 13));
-		int mm = Integer.parseInt(date.substring(14,16));
-		System.out.println(date.substring(14, 16));
-		int ss = Integer.parseInt(date.substring(17,19));
-		System.out.println(date.substring(17, 19) + "\n");
-		
-		String monthNum = "01";
-		switch(month){
-			case "Jan": monthNum = "01";
-						break;
-			case "Feb": monthNum = "02";
-						break;
-			case "Mar": monthNum = "03";
-						break;
-			case "Apr": monthNum = "04";
-						break;
-			case "May": monthNum = "05";
-						break;
-			case "Jun": monthNum = "06";
-						break;
-			case "Jul": monthNum = "07";
-						break;
-			case "Aug": monthNum = "08";
-						break;
-			case "Sep": monthNum = "09";
-						break;
-			case "Oct": monthNum = "10";
-						break;
-			case "Nov": monthNum = "11";
-						break;
-			case "Dec": monthNum = "12";
-						break;
-		}
-
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-		String dateInString = day+"-"+monthNum+"-"+year+" "+hh+":"+mm+":"+ss;
-
-		return sdf.parse(dateInString);
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		try {	
@@ -96,7 +43,6 @@ public class ControlerRecherche implements ActionListener {
 					//Annotation KNN
 					List<TweetSkeleton> list =  new RetrieveTweet().queryTwitter(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText()));
 					ControllerCSV db = new ControllerCSV(new File("db/"+view.getMotCle().getText()+".csv"));
-					System.out.println("Je suis passer par là !");
 					
 					//Recupération des tweets dans la base et création d'une list de TweetSkeleton
 					List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
@@ -110,16 +56,7 @@ public class ControlerRecherche implements ActionListener {
 						System.out.println("Annotation Tweet :"+tweet.substring(tweet.lastIndexOf(";")+1));
 						System.out.println(' ');*/
 						
-						Date d = convertirDate(tweet.substring(tweet.length()-32-view.getMotCle().getText().length(), tweet.length()-3-view.getMotCle().getText().length()));
-						
-						TweetSkeleton tmp = new TweetSkeleton(
-								Long.parseLong(tweet.substring(0, 18)), 
-								tweet.substring(19, 19+tweet.substring(19, tweet.length()-38).lastIndexOf(";")), 
-								tweet.substring(19, tweet.length()-38).substring(tweet.substring(19, tweet.length()-32-view.getMotCle().getText().length()).indexOf(";")), 
-								d,
-								tweet.substring(tweet.length()-2-view.getMotCle().getText().length(), tweet.length()-2)
-								);
-						
+						TweetSkeleton tmp = TweetSkeleton.converterCSVTweetSkeleton(tweet, view.getMotCle().getText());
 						tweetDb.add(tmp);
 					}
 					

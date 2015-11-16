@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import control.ControlerSaveManuel;
+import control.ControlerSave;
 import model.TweetSkeleton;
 
 public class InterfaceRecherche extends JFrame{
@@ -47,9 +47,9 @@ public class InterfaceRecherche extends JFrame{
 			data[i][1]=listTweets.get(i).getText();
 			if(listTweets.get(i).getAnnotation()==-1)
 				data[i][2]="Indefini";
-			else if(listTweets.get(i).getAnnotation()==4)
-				data[i][2]="Positif";
 			else if(listTweets.get(i).getAnnotation()==2)
+				data[i][2]="Positif";
+			else if(listTweets.get(i).getAnnotation()==1)
 				data[i][2]="Neutre";	
 			else
 				data[i][2]="Negatif";
@@ -68,7 +68,7 @@ public class InterfaceRecherche extends JFrame{
 		table.getColumn("Annotation").setMinWidth(100);
 		table.getColumn("Annotation").setMaxWidth(100);
 		JButton bouton = new JButton("Sauvegarder Resultat");
-		bouton.addActionListener(new ControlerSaveManuel(listTweets,data,this));
+		bouton.addActionListener(new ControlerSave(listTweets,data,this));
 		
 		panelBouton = new JPanel();
 		panelBouton.add(bouton);

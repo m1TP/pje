@@ -75,6 +75,7 @@ public class KNN {
 	 */
 	private static int vote(int[] nearest_neighbour, List<TweetSkeleton> learningDB) {
 		
+		@SuppressWarnings("unused")
 		int no_annotation = 0;
 		int negatif = 0;
 		int neutral = 0;
@@ -88,13 +89,14 @@ public class KNN {
 				no_annotation+=1;
 			else if (tmp == 0)
 				negatif +=1;
-			else if (tmp == 2)
+			else if (tmp == 1)
 				neutral +=1;
-			else if (tmp == 4)
+			else if (tmp == 2)
 				positif +=1;
 			else
 				System.out.println("PROBLEM ANNOTATION NON CONFORM");
 		}
+
 		
 		if (negatif>Math.max(neutral,positif))
 			return 0;
@@ -103,7 +105,7 @@ public class KNN {
 		if (positif>Math.max(neutral, negatif))
 			return 2;
 		
-		return 1;
+		return -1;
 		
 		
 	}

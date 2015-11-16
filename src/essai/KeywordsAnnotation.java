@@ -32,11 +32,11 @@ public class KeywordsAnnotation {
 		int countNegative=countWords(negative, data);
 		int res = -1;
 		if(countPositive>countNegative)
-			res = 4;
+			res = 2;
 		else if (countPositive<countNegative)
 			res = 0;
 		else 
-			res = 2;
+			res = 1;
 		ts.setAnnotation(res);
 	}
 	
