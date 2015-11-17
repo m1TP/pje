@@ -17,6 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 
+import control.ControlerAnalyse;
 import control.ControlerExit;
 import control.ControlerRecherche;
 
@@ -38,7 +39,11 @@ public class InterfacePrincipale {
 	private JButton boutonRecherche;
 	private JMenuBar menuBar;
 	private JMenu menuOption;
+	private JMenu menuAnalyse;
 	private JMenuItem exit;
+	private JMenuItem analyseKnn;
+	private JMenuItem analyseBayesienne;
+	private JMenuItem analyseKnnBayesienne;
 	private ButtonGroup optionAnnotation;
 	private JRadioButton radio1;
 	private JRadioButton radio2;
@@ -74,6 +79,7 @@ public class InterfacePrincipale {
 		 */
 		menuBar = new JMenuBar();
 		menuOption = new JMenu("Options");
+		menuAnalyse = new JMenu("Analyse Experimentale");
 		
 		optionAnnotation = new ButtonGroup();
 		radio1 = new JRadioButton("Annotation manuelle",true);
@@ -101,7 +107,20 @@ public class InterfacePrincipale {
 		exit.addActionListener(new ControlerExit(frame));
 		menuOption.add(exit);
 		
+		
+		
+		analyseKnn = new JMenuItem("Reelle/KNN");
+		analyseKnn.addActionListener(new ControlerAnalyse());
+		analyseBayesienne = new JMenuItem("Reelle/Bayesienne");
+		//controler
+		analyseKnnBayesienne = new JMenuItem("KNN/Bayesienne");
+		//controler
+		menuAnalyse.add(analyseKnn);
+		menuAnalyse.add(analyseBayesienne);
+		menuAnalyse.add(analyseKnnBayesienne);
+		
 		menuBar.add(menuOption);
+		menuBar.add(menuAnalyse);
 		frame.add("North",menuBar);
 		
 		

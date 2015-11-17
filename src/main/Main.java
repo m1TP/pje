@@ -9,6 +9,7 @@ import essai.KeywordsAnnotation;
 import essai.RetrieveTweet;
 import view.InterfacePrincipale;
 
+@SuppressWarnings("unused")
 public class Main {
 
 	/**
