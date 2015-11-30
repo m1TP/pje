@@ -50,6 +50,11 @@ public class ControlerSave implements ActionListener {
 			ControllerCSV csv = new ControllerCSV(
 					new File("db"+File.separator+listTweets.get(0).getQuery().toLowerCase()+".csv"));
 			csv.doAll(listTweets);
+			
+			ControllerCSV csvAll = new ControllerCSV(
+					new File("db"+File.separator+"all.csv"));
+			csvAll.doAll(listTweets);
+			
 		}
 		//Fermeture de la fenetre
 		frame.dispose();

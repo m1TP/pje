@@ -57,8 +57,8 @@ public class ControlerRecherche implements ActionListener {
 					{
 						TweetSkeleton tmp = new TweetSkeleton(elt.getId(), elt.getUser(), elt.getText(), elt.getDate(), elt.getQuery());
 						tmp.setData((tmp.cleanData(tmp.getText())));
-						
-						KNN.knn_annotation(tmp, (tweetDb.size()*2/3), tweetDb);
+						//(tweetDb.size()*2/3)
+						KNN.knn_annotation(tmp, 3, tweetDb);
 						elt.setAnnotation(tmp.getAnnotation());
 						System.out.println(elt);
 						System.out.println(tmp);

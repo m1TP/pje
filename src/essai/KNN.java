@@ -22,8 +22,12 @@ public class KNN {
 		{
 			for (String s2 : words2)
 			{
-				if(s1.equals(s2))
-					motsCommuns+=1;
+				if(!s1.equals("@") && !s1.equals("RT") && !s1.equals("URL") && !s1.equals(".") && !s1.equals("#") && !s1.equals(",")
+						&&	!s1.equals("?") &&	!s1.equals(":") &&	!s1.equals("!") &&	!s1.equals(" ")  &&	!s1.equals("	") &&	!s1.equals(")") &&	!s1.equals("")    
+						)
+					if(s1.equals(s2)){
+						motsCommuns+=1;
+					}
 			}
 		}
 		
@@ -59,9 +63,11 @@ public class KNN {
 				nearest_neighbour_distance[indice_max_distance] = d;
 				indice_max_distance = search_indice_value_max(nearest_neighbour_distance);
 				max_distance = nearest_neighbour_distance[indice_max_distance];
+				
+				System.out.println("CHANGEMENT !!!!!!!!");
 			}
 		}
-		
+		System.out.println("Pour le tweet :"+ts.getText());
 		ts.setAnnotation(vote(nearest_neighbour,learningDB));
 		
 	}
@@ -85,6 +91,8 @@ public class KNN {
 		for(int i=0;i<nearest_neighbour.length;i++)
 		{
 			tmp = learningDB.get(nearest_neighbour[i]).getAnnotation();
+			String tmpText = learningDB.get(nearest_neighbour[i]).getText()+" "+learningDB.get(nearest_neighbour[i]).getId();
+			System.out.println("Annotation : "+tmp+" avec le tweet : "+tmpText);
 			if (tmp==-1)
 				no_annotation+=1;
 			else if (tmp == 0)
@@ -95,8 +103,10 @@ public class KNN {
 				positif +=1;
 			else
 				System.out.println("PROBLEM ANNOTATION NON CONFORM");
+			
+			
 		}
-
+		System.out.println("\n");
 		
 		if (negatif>Math.max(neutral,positif))
 			return 0;

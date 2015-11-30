@@ -91,7 +91,7 @@ public class InterfaceGraph extends JPanel{
 			int annotationTmp = tmp.getAnnotation();
 			
 			//Classe estimee
-			KNN.knn_annotation(tmp, 2*tweetDb.size()/3, tweetDb);
+			KNN.knn_annotation(tmp, 10, tweetDb);
 			System.out.println(tmp.getAnnotation());
 			switch(tmp.getAnnotation()){
 			case 0:
