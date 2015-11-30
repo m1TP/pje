@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -15,7 +15,7 @@ import model.TweetSkeleton;
 import essai.ControllerCSV;
 import essai.KNN;
 
-public class InterfaceGraph extends JFrame{
+public class InterfaceGraph extends JPanel{
 	
 	/**
 	 * 
@@ -27,19 +27,11 @@ public class InterfaceGraph extends JFrame{
 	
 	public InterfaceGraph(String nomFichierCsv){
 		
-		super();
-		
-		setTitle("Evaluation classe Reelle/classe Estimee");
-		//*****************************************************************************************************************************
-		//************************************************** METTRE A JOUR en fonction du nombre de donnée ****************************
-		//*****************************************************************************************************************************
-		setSize(new Dimension(550, 300));
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setSize(new Dimension(550, 260));
 		setLayout(new BorderLayout());
 		
 		//Lecture du fichier csv
-		ControllerCSV db = new ControllerCSV(new File("db/"+nomFichierCsv+".csv"));
+		ControllerCSV db = new ControllerCSV(new File("./db/"+nomFichierCsv+".csv"));
 		
 		//Recuperation des tweets dans la base et creation d'une liste de TweetSkeleton
 		List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
@@ -138,7 +130,7 @@ public class InterfaceGraph extends JFrame{
 			
 		}
 		
-		add(new Graph(polarite,nomFichierCsv),BorderLayout.CENTER);
+		add(new Graph(polarite),BorderLayout.CENTER);
 		
 		
 		/**
@@ -163,31 +155,22 @@ public class InterfaceGraph extends JFrame{
 		donnees[2][2]=neuneg;
 		donnees[2][3]=negneg;
 		
-		JTable matrice = new JTable(donnees,entetes);
+		JTable matrice = new JTable(donnees,entetes){
+			private static final long serialVersionUID = 3432869486539089276L;
+
+			/** Pour ne plus pouvoir editer les colonnes ... */
+			public boolean isCellEditable(int row, int col){
+				return false;
+			}
+		};
+		
+		matrice.getColumnModel().getColumn(0).setPreferredWidth(100);
+		
 		JScrollPane sp = new JScrollPane(matrice);
 		sp.setPreferredSize(new Dimension(550,80));
 		add(sp ,BorderLayout.AFTER_LAST_LINE);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		setVisible(true);
+
 	}
 	
 }

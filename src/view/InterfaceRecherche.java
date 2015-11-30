@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -67,7 +68,10 @@ public class InterfaceRecherche extends JFrame{
 		table.getColumn("Tweet").setMinWidth(800);	
 		table.getColumn("Annotation").setMinWidth(100);
 		table.getColumn("Annotation").setMaxWidth(100);
-		JButton bouton = new JButton("Sauvegarder Resultat");
+		JButton bouton = new JButton();
+		bouton.setBorderPainted(false);
+		bouton.setContentAreaFilled(false);
+		bouton.setIcon(new ImageIcon("img/bouton-sauvegarde-bleu.png"));
 		bouton.addActionListener(new ControlerSave(listTweets,data,this));
 		
 		panelBouton = new JPanel();

@@ -13,6 +13,7 @@ import essai.ControllerCSV;
 import essai.KNN;
 import essai.KeywordsAnnotation;
 import essai.RetrieveTweet;
+import view.InterfaceErreur;
 import view.InterfacePrincipale;
 import view.InterfaceRecherche;
 
@@ -89,7 +90,9 @@ public class ControlerRecherche implements ActionListener {
 					new InterfaceRecherche(list);
 				}
 					
-			}	
+			}else{
+				new InterfaceErreur("Erreur de formulaire - Indiquez un sujet et un nombre de tweet");
+			}
 		} catch (Exception e) {	e.printStackTrace();}
 		
 	}

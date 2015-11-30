@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Window.Type;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,9 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-
-import control.ControlerAnalyse;
 import control.ControlerExit;
+import control.ControlerInterfaceAnalyse;
 import control.ControlerRecherche;
 
 
@@ -27,6 +27,8 @@ public class InterfacePrincipale {
 	private JPanel panelFrame;
 	private JPanel panelBoiteOutil;
 	
+	private JPanel panelIcone;
+	private JLabel labelIcone;
 	private JPanel panelSujet;
 	private JLabel labelSujet;
 	private JTextField sujet;
@@ -62,7 +64,7 @@ public class InterfacePrincipale {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
-		frame.setSize(500,200);
+		frame.setSize(500,300);
 		frame.setLayout(new BorderLayout());
 		frame.setResizable(false);
 		
@@ -110,7 +112,7 @@ public class InterfacePrincipale {
 		
 		
 		analyseKnn = new JMenuItem("Reelle/KNN");
-		analyseKnn.addActionListener(new ControlerAnalyse());
+		analyseKnn.addActionListener(new ControlerInterfaceAnalyse());
 		analyseBayesienne = new JMenuItem("Reelle/Bayesienne");
 		//controler
 		analyseKnnBayesienne = new JMenuItem("KNN/Bayesienne");
@@ -131,20 +133,41 @@ public class InterfacePrincipale {
 		/**
 		 * Ajout des composants de la fenetre
 		 */
-		panelSujet = new JPanel(new BorderLayout());
-		labelSujet= new JLabel(" Mot-cle :");
-		sujet = new JTextField("Equipe de France de rugby");
-		panelSujet.add(labelSujet, BorderLayout.NORTH);
-		panelSujet.add(sujet, BorderLayout.CENTER);
+		panelIcone = new JPanel(new BorderLayout());
+		labelIcone = new JLabel(new ImageIcon("img/bird.png"));
+		panelIcone.add(labelIcone,BorderLayout.WEST);
+
+		panelSujet = new JPanel(new GridLayout(2,1));
+		labelSujet= new JLabel(" Sujet des tweets à récupérer :");
+		final String initialText = "Lille 1";
+		sujet = new JTextField(initialText);
+		sujet.addFocusListener(new java.awt.event.FocusAdapter() {
+		    public void focusGained(java.awt.event.FocusEvent evt) {
+		       if (sujet.getText().equals(initialText)) {
+		    	   sujet.selectAll();
+		       }
+		    }
+		});
+		panelSujet.add(labelSujet);
+		panelSujet.add(sujet);
 		
-		panelNbTweet = new JPanel(new BorderLayout());
-		labelNbTweet = new JLabel("Nombre de tweet:");
-		nbTweet = new JTextField("1");
-		panelNbTweet.add(labelNbTweet, BorderLayout.NORTH);
-		panelNbTweet.add(nbTweet, BorderLayout.CENTER);
+		panelNbTweet = new JPanel(new GridLayout(2,1));
+		labelNbTweet = new JLabel(" Nombre de tweets souhaités :");
+		final String initialNum = "1";
+		nbTweet = new JTextField(initialNum);
+		nbTweet.addFocusListener(new java.awt.event.FocusAdapter() {
+		    public void focusGained(java.awt.event.FocusEvent evt) {
+		       if (nbTweet.getText().equals(initialNum)) {
+		    	   nbTweet.selectAll();
+		       }
+		    }
+		});		
+		panelNbTweet.add(labelNbTweet);
+		panelNbTweet.add(nbTweet);
 		
 		panelBoiteOutil = new JPanel();
-		panelBoiteOutil.setLayout(new GridLayout(3, 1));
+		panelBoiteOutil.setLayout(new GridLayout(4, 1));
+		panelBoiteOutil.add(panelIcone);
 		panelBoiteOutil.add(panelSujet);
 		panelBoiteOutil.add(panelNbTweet);
 		
@@ -155,7 +178,10 @@ public class InterfacePrincipale {
 		//creation des boutons
 				
 
-		boutonRecherche = new JButton("Search");
+		boutonRecherche = new JButton();
+		boutonRecherche.setBorderPainted(false);
+		boutonRecherche.setContentAreaFilled(false);
+		boutonRecherche.setIcon(new ImageIcon("img/bouton-rechercher-bleu.png"));
 		boutonRecherche.addActionListener(new ControlerRecherche(this,optionAnnotation));					
 		
 		panelBouton = new JPanel();
