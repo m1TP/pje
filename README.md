@@ -9,4 +9,5 @@ Rouse Julien
 ## TODO
 
 - Classification Bayésienne
-- Choix methode d'annotation sur l'interface de recherche
+- Adapter Interface pour ajouter la classification Bayésienne
+- Verifier pour KNN que la base de donnée est accés importante

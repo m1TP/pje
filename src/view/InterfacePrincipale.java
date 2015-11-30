@@ -191,29 +191,7 @@ public class InterfacePrincipale {
 		
 		panelFrame.add(panelBoiteOutil);
 		
-		//affichage des tweets
-	/*	panelAffichage = new JPanel();
 		
-		String [] nameColumn = {"ID","Alias","Tweet","Date","Annotation"};
-		Object[][] data = {
-			    {"Mary", "Campione",
-			     "Snowboarding", "21011958", -1},
-			    {"Alison", "Huml",
-			     "Rowing", new Integer(3), -1},
-			    {"Kathy", "Walrath",
-			     "Knitting", new Integer(2), -1},
-			    {"Sharon", "Zakhour",
-			     "Speed reading", new Integer(20), -1},
-			    {"Philip", "Milne",
-			     "Pool", new Integer(10), -1}
-			};
-		table = new JTable(data, nameColumn);
-		
-		
-		panelAffichage.add(table);
-		
-		
-		panelFrame.add(panelAffichage);*/
 		frame.add(panelFrame);
 		frame.setVisible(true);
 		
