@@ -4,9 +4,9 @@ Personnal Project: Analysing Mood on Twitter
 ##Authors
 
 Deshaies Christopher
-Rousé Julien
+Rouse Julien
 
 ## TODO
 
-- clean les données avant l'annotation automatique
-- afficher les données non clean dans l'interface
+- Classification Bay�sienne
+- Choix methode d'annotation sur l'interface de recherche
