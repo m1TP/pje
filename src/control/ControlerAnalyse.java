@@ -12,17 +12,19 @@ public class ControlerAnalyse implements ActionListener {
 
 	public JComboBox<String> box;
 	public InterfaceGraphSup frame;
+	public int nbVoisinKNN;
 	
 	public ControlerAnalyse(JComboBox<String> box, InterfaceGraphSup frame){
 		this.box=box;
 		this.frame=frame;
+		this.nbVoisinKNN=frame.nbVoisinKNN;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Nombre d'élément :"+frame.getCompGraph());
 		frame.deleteCompGraph();
-		frame.add(new InterfaceGraph(this.box.getSelectedItem().toString()));
+		frame.add(new InterfaceGraph(this.box.getSelectedItem().toString(),nbVoisinKNN));
 		frame.revalidate();
 	}
 

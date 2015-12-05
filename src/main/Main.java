@@ -21,7 +21,7 @@ public class Main {
 		//ControllerCSV csv = new ControllerCSV(new File("db.csv"));
 		//csv.doAll(rt.queryTwitter("rugby",20));
 		//rt.queryTwitter("rugby",20);
-		new InterfacePrincipale();
+		new InterfacePrincipale(0);
 		
 		/*
 		KeywordsAnnotation ka = new KeywordsAnnotation();

@@ -39,8 +39,11 @@ public class InterfaceRecherche extends JFrame{
 	private JRadioButton radio3;
 	private JRadioButton radio4;
 	
-	public InterfaceRecherche(List<TweetSkeleton> listTweets){
+	public int nbVoisinKNN;
+	
+	public InterfaceRecherche(List<TweetSkeleton> listTweets, int nbVoisinKNN){
 		super();
+		this.nbVoisinKNN=nbVoisinKNN;
 		
 		setTitle("Tweets obtenu");
 		setType(Type.UTILITY);

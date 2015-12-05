@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import control.ControlerConfig;
 import control.ControlerExit;
 import control.ControlerInterfaceAnalyse;
 import control.ControlerRecherche;
@@ -43,6 +44,7 @@ public class InterfacePrincipale {
 	private JMenu menuOption;
 	private JMenu menuAnalyse;
 	private JMenuItem exit;
+	private JMenuItem config;
 	private JMenuItem analyseKnn;
 	private JMenuItem analyseBayesienne;
 	private JMenuItem analyseKnnBayesienne;
@@ -57,7 +59,11 @@ public class InterfacePrincipale {
 	@SuppressWarnings("unused")
 	private String sujettweet;
 	
-	public InterfacePrincipale(){
+	public int nbVoisinKNN;
+	
+	public InterfacePrincipale(int nbVoisinKNN){
+		this.nbVoisinKNN=nbVoisinKNN;
+		
 		
 		frame = new JFrame("API Twitter");
 		frame.setType(Type.UTILITY);
@@ -104,15 +110,20 @@ public class InterfacePrincipale {
 		
 		menuOption.addSeparator();
 		
+		config = new JMenuItem("Configuration");
+		config.addActionListener(new ControlerConfig(this));
+		menuOption.add(config);
+		
+		menuOption.addSeparator();
+		
 		exit = new JMenuItem("Exit");
-		/** Controller a implementer **/
 		exit.addActionListener(new ControlerExit(frame));
 		menuOption.add(exit);
 		
 		
 		
 		analyseKnn = new JMenuItem("Reelle/KNN");
-		analyseKnn.addActionListener(new ControlerInterfaceAnalyse());
+		analyseKnn.addActionListener(new ControlerInterfaceAnalyse(nbVoisinKNN));
 		analyseBayesienne = new JMenuItem("Reelle/Bayesienne");
 		//controler
 		analyseKnnBayesienne = new JMenuItem("KNN/Bayesienne");
@@ -201,5 +212,8 @@ public class InterfacePrincipale {
 	public JTextField getMotCle() {	return sujet;}
 	public JTextField getNbTweet() {return nbTweet;}
 	
-
+	public void closeInterface(){
+		frame.dispose();
+	}
+	
 }

@@ -64,10 +64,10 @@ public class KNN {
 				indice_max_distance = search_indice_value_max(nearest_neighbour_distance);
 				max_distance = nearest_neighbour_distance[indice_max_distance];
 				
-				System.out.println("CHANGEMENT !!!!!!!!");
+			//	System.out.println("CHANGEMENT !!!!!!!!");
 			}
 		}
-		System.out.println("Pour le tweet :"+ts.getText());
+	//	System.out.println("Pour le tweet :"+ts.getText());
 		ts.setAnnotation(vote(nearest_neighbour,learningDB));
 		
 	}
@@ -115,7 +115,7 @@ public class KNN {
 		if (positif>Math.max(neutral, negatif))
 			return 2;
 		
-		return -1;
+		return 1;
 		
 		
 	}

@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,7 +26,7 @@ public class InterfaceGraph extends JPanel{
 	public int [] polarite;
 	
 	
-	public InterfaceGraph(String nomFichierCsv){
+	public InterfaceGraph(String nomFichierCsv, int nbVoisinKNN){
 		
 		setSize(new Dimension(550, 260));
 		setLayout(new BorderLayout());
@@ -35,6 +36,12 @@ public class InterfaceGraph extends JPanel{
 		
 		//Recuperation des tweets dans la base et creation d'une liste de TweetSkeleton
 		List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
+		
+		if(db.getListTweet().size()<nbVoisinKNN){
+			JOptionPane.showMessageDialog(null,"Pas assez de données en base sur ce sujet pour classifier par KNN ce fichier... changez vos paramètres");
+			return;
+		}
+			
 		
 		/**
 		* polarite[0]= nbPositifReelle
@@ -91,8 +98,12 @@ public class InterfaceGraph extends JPanel{
 			int annotationTmp = tmp.getAnnotation();
 			
 			//Classe estimee
-			KNN.knn_annotation(tmp, 10, tweetDb);
-			System.out.println(tmp.getAnnotation());
+			if(nbVoisinKNN>0)
+				KNN.knn_annotation(tmp, nbVoisinKNN, tweetDb);
+			else
+				KNN.knn_annotation(tmp, tweetDb.size()/3 , tweetDb);
+			
+		
 			switch(tmp.getAnnotation()){
 			case 0:
 				polarite[5]++;
@@ -136,8 +147,11 @@ public class InterfaceGraph extends JPanel{
 		/**
 		 * Matrice de confusion
 		 */
-		//JPanel matricePanel = new JPanel();
-		String[] entetes = {" ","Classe Reelle - Positif","Neutre","Negatif"};
+		//Taux d'erreur
+		java.text.DecimalFormat df = new java.text.DecimalFormat("0.##");
+		double tauxErreur = 100-(((double)pospos+(double)negneg+(double)neuneu)/((double)neupos+(double)negpos+(double)posneu+(double)negneu+(double)posneg+(double)neuneg+(double)pospos+(double)negneg+(double)neuneu))*100;
+		
+		String[] entetes = {"Taux d'erreur "+df.format(tauxErreur)+"%","Classe Reelle - Positif","Neutre","Negatif"};
 		Object[][] donnees = new Object[3][4];
 		
 		donnees[0][0]="Classe Estimee - Positif";

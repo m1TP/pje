@@ -22,9 +22,11 @@ public class InterfaceGraphSup extends JFrame{
 	private JPanel panelGraph = new JPanel();
 	private JComboBox<String> listeCSV;
 	private JLabel label;
+	public int nbVoisinKNN;
 	
-	public InterfaceGraphSup(){
+	public InterfaceGraphSup(int nbVoisinKNN){
 		super();
+		this.nbVoisinKNN=nbVoisinKNN;
 		
 		setTitle("Evaluation classe Reelle/classe Estimee");
 		setSize(new Dimension(550, 300));

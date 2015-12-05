@@ -7,11 +7,15 @@ import view.InterfaceGraphSup;
 
 public class ControlerInterfaceAnalyse implements ActionListener {
 
-	public ControlerInterfaceAnalyse(){}
+	public int nbVoisinKNN;
+	
+	public ControlerInterfaceAnalyse(int nbVoisinKNN){
+		this.nbVoisinKNN=nbVoisinKNN;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Pour l'instant en test
-		new InterfaceGraphSup(); 		
+		new InterfaceGraphSup(nbVoisinKNN); 		
 	}
 }

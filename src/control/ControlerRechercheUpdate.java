@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 import essai.ControllerCSV;
 import essai.KNN;
@@ -20,11 +21,13 @@ public class ControlerRechercheUpdate implements ActionListener {
 	private List<TweetSkeleton> list;
 	private ButtonGroup optionAnnotation;
 	private InterfaceRecherche ir;
+	public int nbVoisinKNN;
 	
 	public ControlerRechercheUpdate(List<TweetSkeleton> list, ButtonGroup optionAnnotation, InterfaceRecherche ir) {
 		this.list=list;
 		this.optionAnnotation=optionAnnotation;
 		this.ir=ir;
+		this.nbVoisinKNN=ir.nbVoisinKNN;
 	}
 	
 	@Override
@@ -41,6 +44,12 @@ public class ControlerRechercheUpdate implements ActionListener {
 			//Annotation KNN
 			String sujet = list.get(0).getQuery();
 			ControllerCSV db = new ControllerCSV(new File("db/"+sujet+".csv"));
+			
+			//KNN seulement 
+			if(db.getListTweet().size()<1){
+				JOptionPane.showMessageDialog(null,"Aucune base de donnée sur ce sujet pour classifier les tweets !");
+				return;
+			}
 			
 			//Recupération des tweets dans la base et création d'une list de TweetSkeleton
 			List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
@@ -60,7 +69,11 @@ public class ControlerRechercheUpdate implements ActionListener {
 				TweetSkeleton tmp = new TweetSkeleton(elt.getId(), elt.getUser(), elt.getText(), elt.getDate(), elt.getQuery());
 				tmp.setData((tmp.cleanData(tmp.getText())));
 				
-				KNN.knn_annotation(tmp, (tweetDb.size()*2/3), tweetDb);
+				if(nbVoisinKNN>0)
+					KNN.knn_annotation(tmp, nbVoisinKNN, tweetDb);
+				else
+					KNN.knn_annotation(tmp, tweetDb.size()/3 , tweetDb);
+				
 				elt.setAnnotation(tmp.getAnnotation());
 				System.out.println(elt);
 				System.out.println(tmp);
