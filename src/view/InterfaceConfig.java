@@ -29,6 +29,7 @@ public class InterfaceConfig extends JFrame{
 		
 		setTitle("Configuration des méthodes de classification");
 		setType(Type.UTILITY);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new GridLayout(2,1));
 		

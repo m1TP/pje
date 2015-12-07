@@ -22,7 +22,6 @@ public class ControlerAnalyse implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Nombre d'élément :"+frame.getCompGraph());
 		frame.deleteCompGraph();
 		frame.add(new InterfaceGraph(this.box.getSelectedItem().toString(),nbVoisinKNN));
 		frame.revalidate();

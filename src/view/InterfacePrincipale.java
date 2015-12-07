@@ -3,8 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Window.Type;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,8 +21,12 @@ import control.ControlerInterfaceAnalyse;
 import control.ControlerRecherche;
 
 
-public class InterfacePrincipale {
-	private JFrame frame;
+public class InterfacePrincipale extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6496116370100484379L;
+
 	private JPanel panelFrame;
 	private JPanel panelBoiteOutil;
 	
@@ -64,15 +66,14 @@ public class InterfacePrincipale {
 	public InterfacePrincipale(int nbVoisinKNN){
 		this.nbVoisinKNN=nbVoisinKNN;
 		
-		
-		frame = new JFrame("API Twitter");
-		frame.setType(Type.UTILITY);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.pack();
-		frame.setSize(500,300);
-		frame.setLayout(new BorderLayout());
-		frame.setResizable(false);
+		setTitle("API Twitter");
+		setType(Type.UTILITY);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		pack();
+		setSize(500,300);
+		setLayout(new BorderLayout());
+		setResizable(false);
 		
 		panelFrame = new JPanel();
 		panelFrame.setLayout(new GridLayout(1,2));
@@ -117,13 +118,13 @@ public class InterfacePrincipale {
 		menuOption.addSeparator();
 		
 		exit = new JMenuItem("Exit");
-		exit.addActionListener(new ControlerExit(frame));
+		exit.addActionListener(new ControlerExit(this));
 		menuOption.add(exit);
 		
 		
 		
 		analyseKnn = new JMenuItem("Reelle/KNN");
-		analyseKnn.addActionListener(new ControlerInterfaceAnalyse(nbVoisinKNN));
+		analyseKnn.addActionListener(new ControlerInterfaceAnalyse(this));
 		analyseBayesienne = new JMenuItem("Reelle/Bayesienne");
 		//controler
 		analyseKnnBayesienne = new JMenuItem("KNN/Bayesienne");
@@ -134,7 +135,7 @@ public class InterfacePrincipale {
 		
 		menuBar.add(menuOption);
 		menuBar.add(menuAnalyse);
-		frame.add("North",menuBar);
+		getContentPane().add("North",menuBar);
 		
 		
 		
@@ -203,17 +204,16 @@ public class InterfacePrincipale {
 		panelFrame.add(panelBoiteOutil);
 		
 		
-		frame.add(panelFrame);
-		frame.setVisible(true);
+		getContentPane().add(panelFrame);
+		setVisible(true);
 		
 	}
 	
 	/***************** getter ***************************/
 	public JTextField getMotCle() {	return sujet;}
 	public JTextField getNbTweet() {return nbTweet;}
-	
 	public void closeInterface(){
-		frame.dispose();
+		this.dispose();
 	}
 	
 }
