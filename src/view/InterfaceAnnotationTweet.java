@@ -22,7 +22,7 @@ import control.ControlerRechercheUpdate;
 import control.ControlerSave;
 import model.TweetSkeleton;
 
-public class InterfaceRecherche extends JFrame{
+public class InterfaceAnnotationTweet extends JFrame{
 	
 	/**
 	 * 
@@ -40,10 +40,12 @@ public class InterfaceRecherche extends JFrame{
 	private JRadioButton radio4;
 	
 	public int nbVoisinKNN;
+	public boolean [] tab;
 	
-	public InterfaceRecherche(List<TweetSkeleton> listTweets, int nbVoisinKNN){
+	public InterfaceAnnotationTweet(List<TweetSkeleton> listTweets, int nbVoisinKNN, boolean[] tab){
 		super();
 		this.nbVoisinKNN=nbVoisinKNN;
+		this.tab=tab;
 		
 		setTitle("Tweets obtenu");
 		setType(Type.UTILITY);
@@ -132,8 +134,55 @@ public class InterfaceRecherche extends JFrame{
 		pack();
 	}
 	
-	public void updateInterface(List<TweetSkeleton> listTweets){
+	public void updateInterface(List<TweetSkeleton> listTweets, int option){
 		
+		getContentPane().removeAll();
+		
+		//Ajout menu
+		menuBar = new JMenuBar();
+		menuOption = new JMenu("Options");
+				
+		optionAnnotation = new ButtonGroup();
+		
+		if(option==0)
+			radio1 = new JRadioButton("Annotation manuelle",true);
+		else
+			radio1 = new JRadioButton("Annotation manuelle");
+		radio1.setMnemonic(0);
+		radio1.addActionListener(new ControlerRechercheUpdate(listTweets, optionAnnotation, this));
+		if(option==1)
+			radio2 = new JRadioButton("Annotation automatique",true);
+		else
+			radio2 = new JRadioButton("Annotation automatique");
+		radio2.setMnemonic(1);
+		radio2.addActionListener(new ControlerRechercheUpdate(listTweets, optionAnnotation, this));
+		radio3 = new JRadioButton("Annotation par KNN");
+		if(option==2)
+			radio3 = new JRadioButton("Annotation par KNN",true);
+		else
+			radio3 = new JRadioButton("Annotation par KNN");
+		radio3.setMnemonic(2);
+		radio3.addActionListener(new ControlerRechercheUpdate(listTweets, optionAnnotation, this));
+		radio4 = new JRadioButton("Annotation par Baysienne");
+		if(option==3)
+			radio4 = new JRadioButton("Annotation par Baysienne",true);
+		else
+			radio4 = new JRadioButton("Annotation par Baysienne");
+		radio4.setMnemonic(3);
+		radio4.addActionListener(new ControlerRechercheUpdate(listTweets, optionAnnotation, this));
+		optionAnnotation.add(radio1);
+		optionAnnotation.add(radio2);
+		optionAnnotation.add(radio3);
+		optionAnnotation.add(radio4);
+				
+		menuOption.add(radio1);
+		menuOption.add(radio2);
+		menuOption.add(radio3);
+		menuOption.add(radio4);
+				
+		menuBar.add(menuOption);
+		getContentPane().add(menuBar,BorderLayout.NORTH);
+				
 		// Realisation du tableau de tweets		
 		String [] nameColumn = {"Alias","Tweet","Annotation"};
 		Object [][] data = new Object[listTweets.size()][3];
@@ -168,7 +217,20 @@ public class InterfaceRecherche extends JFrame{
 		table.getColumn("Annotation").setMinWidth(100);
 		table.getColumn("Annotation").setMaxWidth(100);
 		
-		getContentPane().add(new JScrollPane(table),1);
+		
+		JButton bouton = new JButton();
+		bouton.setBorderPainted(false);
+		bouton.setContentAreaFilled(false);
+		bouton.setIcon(new ImageIcon("img/bouton-sauvegarde-bleu.png"));
+		bouton.addActionListener(new ControlerSave(listTweets,data,this));
+		
+		panelBouton = new JPanel();
+		panelBouton.add(bouton);
+		
+		
+		getContentPane().add(new JScrollPane(table), BorderLayout.CENTER);
+		getContentPane().add(panelBouton,BorderLayout.SOUTH);
+		
 		revalidate();
 	}
 

@@ -1,5 +1,7 @@
 package view;
 
+import graph.GraphDuo;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
@@ -12,21 +14,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import methode.ClassifieurBayesien;
 import model.TweetSkeleton;
-import essai.ControllerCSV;
-import essai.KNN;
+import csv.ControllerCSV;
 
-public class InterfaceGraph extends JPanel{
+public class InterfaceGraphSupBaye extends JPanel{
+	
+
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 04L;
+	private static final long serialVersionUID = -6924439814886152004L;
 	
 	public int [] polarite;
 	
-	
-	public InterfaceGraph(String nomFichierCsv, int nbVoisinKNN){
+	public InterfaceGraphSupBaye(String nomFichierCsv, boolean [] param){
 		
 		setSize(new Dimension(550, 260));
 		setLayout(new BorderLayout());
@@ -37,8 +40,8 @@ public class InterfaceGraph extends JPanel{
 		//Recuperation des tweets dans la base et creation d'une liste de TweetSkeleton
 		List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
 		
-		if(db.getListTweet().size()<nbVoisinKNN){
-			JOptionPane.showMessageDialog(null,"Pas assez de données en base sur ce sujet pour classifier par KNN ce fichier... changez vos paramètres");
+		if(db.getListTweet().size()<1){
+			JOptionPane.showMessageDialog(null,"Pas de données en base sur ce sujet pour classifier par Bayésien ce fichier... changez vos paramètres");
 			return;
 		}
 			
@@ -98,11 +101,12 @@ public class InterfaceGraph extends JPanel{
 			int annotationTmp = tmp.getAnnotation();
 			
 			//Classe estimee
-			if(nbVoisinKNN>0)
-				KNN.knn_annotation(tmp, nbVoisinKNN, tweetDb);
-			else
-				KNN.knn_annotation(tmp, tweetDb.size()/3 , tweetDb);
-			
+			new ClassifieurBayesien().bayesienne_annotation(
+					tmp,
+					new ClassifieurBayesien().precomputeProba(nomFichierCsv,param[1]), 
+					tweetDb,
+					param
+					);
 		
 			switch(tmp.getAnnotation()){
 			case 0:
@@ -141,7 +145,7 @@ public class InterfaceGraph extends JPanel{
 			
 		}
 		
-		add(new Graph(polarite),BorderLayout.CENTER);
+		add(new GraphDuo(polarite),BorderLayout.CENTER);
 		
 		
 		/**
@@ -151,20 +155,20 @@ public class InterfaceGraph extends JPanel{
 		java.text.DecimalFormat df = new java.text.DecimalFormat("0.##");
 		double tauxErreur = 100-(((double)pospos+(double)negneg+(double)neuneu)/((double)neupos+(double)negpos+(double)posneu+(double)negneu+(double)posneg+(double)neuneg+(double)pospos+(double)negneg+(double)neuneu))*100;
 		
-		String[] entetes = {"Taux d'erreur "+df.format(tauxErreur)+"%","Classe Reelle - Positif","Neutre","Negatif"};
+		String[] entetes = {"Taux d'erreur "+df.format(tauxErreur)+"%","Positif","Neutre","Negatif"};
 		Object[][] donnees = new Object[3][4];
 		
-		donnees[0][0]="Classe Estimee - Positif";
+		donnees[0][0]="Bayésien - Positif";
 		donnees[0][1]=pospos;
 		donnees[0][2]=neupos;
 		donnees[0][3]=negpos;
 		
-		donnees[1][0]="Neutre";
+		donnees[1][0]="Bayésien - Neutre";
 		donnees[1][1]=posneu;
 		donnees[1][2]=neuneu;
 		donnees[1][3]=negneu;
 		
-		donnees[2][0]="Negatif";
+		donnees[2][0]="Bayésien - Negatif";
 		donnees[2][1]=posneg;
 		donnees[2][2]=neuneg;
 		donnees[2][3]=negneg;
@@ -186,5 +190,4 @@ public class InterfaceGraph extends JPanel{
 		
 
 	}
-	
 }

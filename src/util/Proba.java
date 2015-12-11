@@ -4,13 +4,13 @@ import java.util.Map;
 
 public class Proba {
 
-	public float probaNeu;
-	public float probaNeg;
-	public float probaPos;
+	public double probaNeu;
+	public double probaNeg;
+	public double probaPos;
 	
 	public Map<String,Triplet> probaWord;
 	
-	public Proba(float probaNeg, float probaNeu, float probaPos, Map<String,Triplet> probaword)
+	public Proba(double probaNeg, double probaNeu, double probaPos, Map<String,Triplet> probaword)
 	{
 		this.probaNeg=probaNeg;
 		this.probaNeu=probaNeu;

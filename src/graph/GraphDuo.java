@@ -1,4 +1,4 @@
-package view;
+package graph;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-public class Graph extends JPanel{
+public class GraphDuo extends JPanel{
 
 
 	/**
@@ -17,7 +17,7 @@ public class Graph extends JPanel{
 	private int [] polarite;
 	private int maxPolarite;
 	
-	public Graph(int [] polarite){
+	public GraphDuo(int [] polarite){
 		this.polarite=polarite;
 		
 		this.maxPolarite=polarite[0];

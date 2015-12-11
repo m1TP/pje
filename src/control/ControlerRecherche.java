@@ -8,15 +8,15 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
-
+import csv.ControllerCSV;
+import methode.KNN;
+import methode.ClassifieurBayesien;
+import methode.KeywordsAnnotation;
+import methode.RetrieveTweet;
 import model.TweetSkeleton;
-import essai.ControllerCSV;
-import essai.KNN;
-import essai.KeywordsAnnotation;
-import essai.RetrieveTweet;
 import view.InterfaceErreur;
 import view.InterfacePrincipale;
-import view.InterfaceRecherche;
+import view.InterfaceAnnotationTweet;
 
 public class ControlerRecherche implements ActionListener {
 
@@ -24,11 +24,13 @@ public class ControlerRecherche implements ActionListener {
 	public InterfacePrincipale view;
 	public ButtonGroup optionAnnotation;
 	public int nbVoisinKNN;
+	public boolean [] tab;
 	
 	public ControlerRecherche(InterfacePrincipale view, ButtonGroup optionAnnotation){
 		this.view = view;
 		this.optionAnnotation = optionAnnotation;
 		this.nbVoisinKNN = view.nbVoisinKNN;
+		this.tab = view.param;
 	}
 	
 	@Override
@@ -38,8 +40,8 @@ public class ControlerRecherche implements ActionListener {
 				if(optionAnnotation.getSelection().getMnemonic() == 0){
 					
 					//Annotation manuelle
-					new InterfaceRecherche(
-						new RetrieveTweet().queryTwitter(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText())), nbVoisinKNN);
+					new InterfaceAnnotationTweet(
+						new RetrieveTweet().queryTwitter(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText())), nbVoisinKNN,tab);
 				
 				}else if(optionAnnotation.getSelection().getMnemonic() == 2){
 					
@@ -47,7 +49,7 @@ public class ControlerRecherche implements ActionListener {
 					List<TweetSkeleton> list =  new RetrieveTweet().queryTwitter(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText()));
 					ControllerCSV db = new ControllerCSV(new File("db/"+view.getMotCle().getText()+".csv"));
 					
-					//KNN seulement 
+					//KNN ssi 
 					if(db.getListTweet().size()<1){
 						JOptionPane.showMessageDialog(null,"Aucune base de donnée sur ce sujet pour classifier les tweets !");
 						return;
@@ -66,19 +68,51 @@ public class ControlerRecherche implements ActionListener {
 					{
 						TweetSkeleton tmp = new TweetSkeleton(elt.getId(), elt.getUser(), elt.getText(), elt.getDate(), elt.getQuery());
 						tmp.setData((tmp.cleanData(tmp.getText())));
-						//(tweetDb.size()*2/3)
-						KNN.knn_annotation(tmp, 3, tweetDb);
+					
+						if(this.nbVoisinKNN==0){
+							KNN.knn_annotation(tmp, (tweetDb.size()*2/3), tweetDb);	
+						}else{
+							KNN.knn_annotation(tmp, this.nbVoisinKNN, tweetDb);
+						}
+						
 						elt.setAnnotation(tmp.getAnnotation());
-						System.out.println(elt);
-						System.out.println(tmp);
+						
 					}
 					
-					new InterfaceRecherche(list,nbVoisinKNN);
+					new InterfaceAnnotationTweet(list,nbVoisinKNN,tab);
 					
 				}else if(optionAnnotation.getSelection().getMnemonic() == 3){
 					
 					//Annotation Bayesienne
-					//En attente
+					List<TweetSkeleton> list =  new RetrieveTweet().queryTwitter(view.getMotCle().getText(),Integer.parseInt(view.getNbTweet().getText()));
+					ControllerCSV db = new ControllerCSV(new File("db/"+view.getMotCle().getText()+".csv"));
+					
+					//Baye ssi 
+					if(db.getListTweet().size()<1){
+						JOptionPane.showMessageDialog(null,"Aucune base de donnée sur ce sujet pour classifier le(s) tweet(s) !");
+						return;
+					}
+
+					//Recupération des tweets dans la base et création d'une list de TweetSkeleton
+					List<TweetSkeleton> tweetDb = new ArrayList<TweetSkeleton>();
+					for(String tweet : db.getListTweet()){
+						TweetSkeleton tmp = TweetSkeleton.converterCSVTweetSkeleton(tweet, view.getMotCle().getText());
+						tweetDb.add(tmp);
+					}
+					
+					
+					for(TweetSkeleton elt : list)
+					{
+						TweetSkeleton tmp = new TweetSkeleton(elt.getId(), elt.getUser(), elt.getText(), elt.getDate(), elt.getQuery());
+						tmp.setData((tmp.cleanData(tmp.getText())));
+					
+						new ClassifieurBayesien().bayesienne_annotation(tmp, new ClassifieurBayesien().precomputeProba(tmp.getQuery(),this.tab[1]), tweetDb, this.tab);
+						
+						elt.setAnnotation(tmp.getAnnotation());
+						
+					}
+					
+					new InterfaceAnnotationTweet(list,nbVoisinKNN,tab);
 					
 				}else{
 				
@@ -96,7 +130,7 @@ public class ControlerRecherche implements ActionListener {
 						elt.setAnnotation(tmp.getAnnotation());
 					}
 					
-					new InterfaceRecherche(list,nbVoisinKNN);
+					new InterfaceAnnotationTweet(list,nbVoisinKNN,tab);
 				}
 					
 			}else{

@@ -11,25 +11,30 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import control.ControlerAnalyse;
+import control.ControlerGraphAllGenerer;
 
-public class InterfaceGraphSup extends JFrame{
+public class InterfaceGraphBaseAll extends JFrame{
 
-	private static final long serialVersionUID = 3674888765597531946L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5287043782646986599L;
 
 	private Container c;
 	private JPanel panel;
 	private JPanel panelGraph = new JPanel();
 	private JComboBox<String> listeCSV;
 	private JLabel label;
-	public int nbVoisinKNN;
+	public boolean [] param;
+	public int nbVoisin;
 	
-	public InterfaceGraphSup(int nbVoisinKNN){
+	public InterfaceGraphBaseAll(int nbVoisin, boolean [] param){
 		super();
-		this.nbVoisinKNN=nbVoisinKNN;
+		this.param=param;
+		this.nbVoisin=nbVoisin;
 		
-		setTitle("Evaluation classe Reelle/classe Estimee");
-		setSize(new Dimension(550, 300));
+		setTitle("Evaluation classe Réelle/KNN/Bayésienne");
+		setSize(new Dimension(780, 500));
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -56,7 +61,7 @@ public class InterfaceGraphSup extends JFrame{
 			
 		 	
 		listeCSV.setPreferredSize( new Dimension(100,20));
-		listeCSV.addActionListener(new ControlerAnalyse(listeCSV,this));
+		listeCSV.addActionListener(new ControlerGraphAllGenerer(listeCSV,this));
 		
 		panel.add(listeCSV);
 		
@@ -69,7 +74,7 @@ public class InterfaceGraphSup extends JFrame{
 		
 		setVisible(true);
 	}
-
+	
 	public JPanel getCompGraph() {
 		return panelGraph;
 	}
@@ -81,5 +86,4 @@ public class InterfaceGraphSup extends JFrame{
 	public void deleteCompGraph(){
 		this.c.remove(1);
 	}
-	
 }

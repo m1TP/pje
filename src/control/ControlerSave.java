@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
-import essai.ControllerCSV;
+import csv.ControllerCSV;
 import model.TweetSkeleton;
-import view.InterfaceRecherche;
+import view.InterfaceAnnotationTweet;
 
 /**
  * Controler qui permet de sauvegarder des données d'une liste de tweet annote sur un fichier csv 
@@ -17,10 +17,10 @@ import view.InterfaceRecherche;
 public class ControlerSave implements ActionListener {
 
 	private Object [][] data;
-	private InterfaceRecherche frame;
+	private InterfaceAnnotationTweet frame;
 	private List<TweetSkeleton> listTweets;
 	
-	public ControlerSave(List<TweetSkeleton> listTweets,Object [][] data, InterfaceRecherche frame){
+	public ControlerSave(List<TweetSkeleton> listTweets,Object [][] data, InterfaceAnnotationTweet frame){
 		this.listTweets=listTweets;
 		this.data=data;
 		this.frame=frame;
@@ -33,6 +33,7 @@ public class ControlerSave implements ActionListener {
 		 *  Modifie la liste de TweetSkeleton contenant les tweets
          *  en fonction de l'annotation souhaite
 		 */
+		
 		for(int i=0;i<data.length;i++){
 			if(data[i][2]=="Positif")
 				listTweets.get(i).setAnnotation(2);

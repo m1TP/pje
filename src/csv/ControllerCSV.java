@@ -1,4 +1,4 @@
-package essai;
+package csv;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -144,7 +144,7 @@ public class ControllerCSV {
 		for(String s : this.listTweet)
 		{
 			String[] tab = s.split(separator);
-			System.out.println(s);
+			//System.out.println(s);
 			ts.add(new TweetSkeleton(tab[0], tab[1], tab[2], tab[3] , tab[4], tab[5]));
 		}
 		return ts;

@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +18,9 @@ import javax.swing.JTextField;
 
 import control.ControlerConfig;
 import control.ControlerExit;
-import control.ControlerInterfaceAnalyse;
+import control.ControlerGraphAll;
+import control.ControlerGraphBaye;
+import control.ControlerGraphKNN;
 import control.ControlerRecherche;
 
 
@@ -62,9 +65,11 @@ public class InterfacePrincipale extends JFrame{
 	private String sujettweet;
 	
 	public int nbVoisinKNN;
+	public boolean[] param;
 	
-	public InterfacePrincipale(int nbVoisinKNN){
+	public InterfacePrincipale(int nbVoisinKNN, boolean[] tab){
 		this.nbVoisinKNN=nbVoisinKNN;
+		this.param=tab;
 		
 		setTitle("API Twitter");
 		setType(Type.UTILITY);
@@ -124,11 +129,11 @@ public class InterfacePrincipale extends JFrame{
 		
 		
 		analyseKnn = new JMenuItem("Reelle/KNN");
-		analyseKnn.addActionListener(new ControlerInterfaceAnalyse(this));
+		analyseKnn.addActionListener(new ControlerGraphKNN(this));
 		analyseBayesienne = new JMenuItem("Reelle/Bayesienne");
-		//controler
-		analyseKnnBayesienne = new JMenuItem("KNN/Bayesienne");
-		//controler
+		analyseBayesienne.addActionListener(new ControlerGraphBaye(this.param));
+		analyseKnnBayesienne = new JMenuItem("Reelle/KNN/Bayesienne");
+		analyseKnnBayesienne.addActionListener(new ControlerGraphAll(this.nbVoisinKNN,this.param));
 		menuAnalyse.add(analyseKnn);
 		menuAnalyse.add(analyseBayesienne);
 		menuAnalyse.add(analyseKnnBayesienne);

@@ -3,18 +3,18 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.InterfaceGraph;
-import view.InterfaceGraphSup;
+import view.InterfaceGraphSupKNN;
+import view.InterfaceGraphBaseKNN;
 
 import javax.swing.JComboBox;
 
-public class ControlerAnalyse implements ActionListener {
+public class ControlerGraphKNNGenerer implements ActionListener {
 
 	public JComboBox<String> box;
-	public InterfaceGraphSup frame;
+	public InterfaceGraphBaseKNN frame;
 	public int nbVoisinKNN;
 	
-	public ControlerAnalyse(JComboBox<String> box, InterfaceGraphSup frame){
+	public ControlerGraphKNNGenerer(JComboBox<String> box, InterfaceGraphBaseKNN frame){
 		this.box=box;
 		this.frame=frame;
 		this.nbVoisinKNN=frame.nbVoisinKNN;
@@ -23,7 +23,7 @@ public class ControlerAnalyse implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		frame.deleteCompGraph();
-		frame.add(new InterfaceGraph(this.box.getSelectedItem().toString(),nbVoisinKNN));
+		frame.add(new InterfaceGraphSupKNN(this.box.getSelectedItem().toString(),nbVoisinKNN));
 		frame.revalidate();
 	}
 

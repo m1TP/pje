@@ -17,7 +17,12 @@ public class ControlerValideConfig implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		new InterfacePrincipale(Integer.parseInt(ic.getNbVoisin().getText()));
+		boolean [] tab = {false,false};
+		if(ic.getParamB1().isSelected())
+			tab[0]=true;
+		if(ic.getParamB2().isSelected())
+			tab[1]=true;
+		new InterfacePrincipale(Integer.parseInt(ic.getNbVoisin().getText()),tab);
 		this.ip.closeInterface();
 		this.ic.dispose();
 	}

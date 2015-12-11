@@ -1,4 +1,4 @@
-package essai;
+package methode;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
