@@ -47,6 +47,7 @@ public class TweetSkeleton {
 	
 	public TweetSkeleton(String id,String user,String text,String date, String query,String annotation)
 	{
+		//System.out.println(id+"   "+user+"   "+text+"   "+date+"    "+query+"   "+annotation);
 		this.id= Long.parseLong(id);
 		this.user=user;
 		this.text=text;
@@ -186,16 +187,25 @@ public class TweetSkeleton {
 		String query;
 		String annotation;
 		
-		id = tweet.substring(0, 18);
-		user = tweet.substring(19, 19+tweet.substring(19, tweet.length()-38).lastIndexOf(";"));
-		text = tweet.substring(19, tweet.length()-38).substring(tweet.substring(19, tweet.length()-33-motCle.length()).indexOf(";")+1);
-		date = tweet.substring(tweet.length()-32-motCle.length(), tweet.length()-3-motCle.length());
-		//CHANGEMENT D'HORAIRE
-		if(tweet.substring(tweet.length()-32-motCle.length(), tweet.length()-3-motCle.length()).charAt(0)==';'){
-			date = tweet.substring(tweet.length()-31-motCle.length(), tweet.length()-3-motCle.length());
+		//Detection sujet
+		int i=tweet.length()-3;
+		int longueur_sujet = 0;
+		while(tweet.charAt(i)!=';'){
+			i--;
+			longueur_sujet++;
 		}
-		query = tweet.substring(tweet.length()-2-motCle.length(), tweet.length()-2);
-		annotation = tweet.substring(tweet.lastIndexOf(";")+1);
+		i--;
+		while(tweet.charAt(i)!=';'){
+			i--;
+		}
+		
+		String[] donnee = tweet.split(";");
+		id = tweet.substring(0, 18);
+		user = donnee[1];
+		text = donnee[2];
+		date = donnee[3];
+		query = donnee[4];
+		annotation = donnee[5];
 		
 		return new TweetSkeleton(id, user, text, date, query, annotation);
 	}
